@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="center-column">
+        <div></div>
+        <div class="container p-4">
+            <div class="content-section col-md-4 border rounded-top">
+                <h5 class="pl-2 pb-2 border-bottom">Actions</h5> <!-- Actions Menu -->
+                <div class = "ml-2">
+                    <a href="{{ url_for('register_user')}}" class="row m-1">Create New User</a>
+                    <a href="{{ url_for('manage_users')}}" class="row m-1">Manage Users</a>
+                </div>
+            </div>
+            <div class="row">
+                <aside class="col-md-4 pl-4 pr-4 mb-3 mr-auto border rounded-top">
+                    <h5 class="p-2 pr-5 border-bottom">Users</h5>
+                    {% for user in users %}
+                        <div class = "row">{{ user }}</div>
+                    {% endfor %}
+                </aside>
+            </div>
+        </div>
+        <div></div>
+    </div>
+{% endblock content %}

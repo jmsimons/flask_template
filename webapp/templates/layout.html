@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        {% if title %}
+        <title>webapp - {{ title }}</title>
+        {% else %}
+        <title>webapp</title>
+        {% endif %}
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    </head>
+    <body>
+        <header class="site-header mb-0">
+            <nav class="" id="navbar">
+                <button class="navbar-item" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- <div class="navbar-item"></div> -->
+                <a class="navbar-item" href="{{ url_for('home') }}">home</a>
+                <a class="navbar-item" href="#">contact</a>
+                {% if current_user.is_authenticated %}
+                    <a class="navbar-item" href="{{ url_for('logout') }}">logout</a>
+                {% else %}
+                    <a class="navbar-item" href="{{ url_for('login') }}">login</a>
+                {% endif %}
+            </nav>
+        </header>
+        <main class="">
+            <div class="">
+                {% with messages = get_flashed_messages(with_categories = True) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class = "alert alert-{{ category }} mb-0">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+
+        <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
+    
+    </body>
+</html>

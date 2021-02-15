@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="center-column">
+        <aside></aside>
+        <div class="body-content">
+            <div></div>
+            <div class="list-col">
+                <a href="{{ url_for('register_user') }}">Register User</a>
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('manage_users') }}">Manage Users</a>
+                <a href="{{ url_for('reset_request') }}">Reset Request</a>
+            </div>
+            <div></div>
+        </div>
+        <aside></aside>
+    </div>
+
+{% endblock content %}
