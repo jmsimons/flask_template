@@ -6,41 +6,37 @@
         <div class = "frame">
             <form method = "POST" action = "">
                 {{ form.hidden_tag() }}
-                <h3 class = "">Log In</h3>
+                <h3 class = "">Add an odometer checkin for your vehicle</h3>
                 <fieldset class = "">
+
                     <div class = "form-row">
-                        {{ form.email.label(class = "form-label") }}
-                        {% if form.email.errors %}
-                            {{ form.email(class = "form-input is-invalid") }}
+                        {{ form.checkin_type.label(class = "form-label") }}
+                        {% if form.checkin_type.errors %}
+                            {{ form.checkin_type(class = "form-input is-invalid") }}
                             <div class = "invalid-feedback">
-                                {% for error in form.email.errors %}
+                                {% for error in form.checkin_type.errors %}
                                     <span>{{ error }}</span>
                                 {% endfor %}
                             </div>
                         {% else %}
-                            {{ form.email(class = "form-input") }}
+                            {{ form.checkin_type(class = "form-input") }}
                         {% endif %}
                     </div>
+
                     <div class = "form-row">
-                        {{ form.password.label(class = "form-label") }}
-                        {% if form.password.errors %}
-                            {{ form.password(class = "form-input is-invalid") }}
+                        {{ form.odometer.label(class = "form-label") }}
+                        {% if form.odometer.errors %}
+                            {{ form.odometer(class = "form-input is-invalid") }}
                             <div class = "invalid-feedback">
-                                {% for error in form.password.errors %}
+                                {% for error in form.odometer.errors %}
                                     <span>{{ error }}</span>
                                 {% endfor %}
                             </div>
                         {% else %}
-                            {{ form.password(class = "form-input password") }}
+                            {{ form.odometer(class = "form-input") }}
                         {% endif %}
                     </div>
-                    <div class = "form-check">
-                        {{ form.remember(class = "") }}
-                        {{ form.remember.label(class = "form-check-label") }}
-                        <small class = "float-right">
-                            <a href="{{ url_for('reset_request') }}">forgot password?</a>
-                        </small>
-                    </div>
+                    
                 </fieldset>
                 <div class = "">
                     {{ form.submit(class = "btn btn-outline-info") }}
@@ -49,5 +45,5 @@
         </div>
         <div></div>
     </div>
-
+    
 {% endblock content %}

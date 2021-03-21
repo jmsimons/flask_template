@@ -4,14 +4,116 @@
     <div class="center-column">
         <aside></aside>
         <div class="body-content">
-            <div></div>
-            <div class="list-col">
-                <a href="{{ url_for('register_user') }}">Register User</a>
-                <a href="{{ url_for('login') }}">Login</a>
-                <a href="{{ url_for('manage_users') }}">Manage Users</a>
-                <a href="{{ url_for('reset_request') }}">Reset Request</a>
+            <div class = "frame">
+
+                <h2>Welcome, {{ user.first }}!</h2>
+
+                <div id = "reminders" class = "content-section">
+                    <img src="{{ url_for('static', filename = 'clock_icon3.svg') }}" class = "hi" alt="">
+                    <div class = "content">
+                        {% if reminders %}
+                            {% for reminder in reminders %}
+                                <a href = "#" class = "reminder">[{{ reminder.vehicle }}] - {{ reminder.type }}</a>
+                            {% endfor %}
+                        {% else %}
+                            <div class = "reminder">No reminders at this time</div> 
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div id = "actions" class = "content-section">
+
+                    <div id = "actions_list">
+                        <h4>Actions:</h4>
+                        <div class = "list-col content">
+                            <a href="#" onclick="toggleActionAltPanel('action_alt_panel_1')">new mileage Check-in</a>
+                            <a href="#" onclick="toggleActionAltPanel('action_alt_panel_2')">new vehicle Expense</a>
+                            <a href="#" onclick="toggleActionAltPanel('action_alt_panel_3')">new Reminder</a>
+                            <a href="{{ url_for('add_vehicle') }}">new Vehicle</a>
+                        </div>
+                    </div>
+
+                    <div id = "action_alt_panel_1" class = "action_alt_panel">
+                        <h4>add a check-in for which vehicle?</h4>
+                        <div class = "list-col content">
+                            {% if vehicles %}
+                                {% for vehicle in vehicles %}
+                                    <a href="{{ url_for('add_checkin', vehicle_id = vehicle.id) }}">{{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}</a>
+                                {% endfor %}
+                            {% else %}
+                                <a href = "{{ url_for('add_vehicle') }}">Your Garage is empty, would you like to add a vehicle?</a>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div id = "action_alt_panel_2" class = "action_alt_panel">
+                        <h4>add an expense for which vehicle?</h4>
+                        <div class = "list-col content">
+                            {% if vehicles %}
+                                {% for vehicle in vehicles %}
+                                    <a href="{{ url_for('add_expense', vehicle_id = vehicle.id) }}">{{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}</a>
+                                {% endfor %}
+                            {% else %}
+                                <a href = "{{ url_for('add_vehicle') }}">Your Garage is empty, would you like to add a vehicle?</a>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div id = "action_alt_panel_3" class = "action_alt_panel">
+                        <h4>add a reminder for which vehicle?</h4>
+                        <div class = "list-col content">
+                            {% if vehicles %}
+                                {% for vehicle in vehicles %}
+                                    <a href="#">{{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}</a>
+                                {% endfor %}
+                            {% else %}
+                                <a href = "{{ url_for('add_vehicle') }}">Your Garage is empty, would you like to add a vehicle?</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class = "content-section">
+                    <h3>Expenses:</h3>
+                    <div class = "content">
+                        <div class = "list-col">
+                            <div>cash expenses: {{ expenses.total_cash }}</div>
+                            <div>expense miles: {{ expenses.total_miles }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "content-section">
+                    <h3>Garage:</h3>
+                    <div class = "content">
+                        <div id = "vehicle-list">
+                            {% if vehicles %}
+                                {% for vehicle in vehicles %}
+                                    <a href = "#" class = "vehicle" onclick = "toggleVehicleDetails('vehicle-details-{{ vehicle.id }}')">{{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}</a>
+                                    <div id = "vehicle-details-{{ vehicle.id }}" class = "vehicle-details">
+                                        <div class = "list-col">
+                                            {% set last_checkin = vehicle["last_checkin"] %}
+                                            <h5>Miles:</h5>
+                                            <small>last Check-in: {{ last_checkin.odometer }}</small>
+                                            <small>year to date: {{ vehicle.year_miles }}</small>
+                                        </div>
+                                        <div class = "list-col">
+                                            <h5>Actions:</h5>
+                                            <small><a class = "details-link" href="{{ url_for('add_checkin', vehicle_id = vehicle.id) }}">new Check-in</a></small>
+                                            <small><a class = "details-link" href="{{ url_for('add_expense', vehicle_id = vehicle.id) }}">new Expense</a></small>
+                                            <small><a class = "details-link" href="#">new Reminder</a></small>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <a href = "{{ url_for('add_vehicle') }}">Your Garage is empty, would you like to add a vehicle?</a> 
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div></div>
         </div>
         <aside></aside>
     </div>

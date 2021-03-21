@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class = "center-column">
+        <div></div>
+        <div class = "frame">
+
+            <h2>Manage Admin Users</h2>
+            <form method = "POST" action="">
+                <fieldset>
+
+                    <legend>Add admin user</legend>
+                    <div class = "form-row admin-row">
+                        {{ invite_form.email(class = "form-input") }}
+                        {{ invite_form.submit(class = "admin-btn btn-light") }}
+                    </div>
+                    
+                    <legend>Search users</legend>
+                    <div class = "form-row admin-row-3">
+                        <!-- {{ search_form.criteria }} -->
+                        <select name="criteria" class = "form-input">
+                            {% for col in table_cols %}
+                                <option value="{{ col }}">{{ col }}</option>
+                            {% endfor %}
+                        </select>
+                        {{ search_form.value(class = "form-input") }}
+                        {{ search_form.submit(class = "admin-btn") }}
+                    </div>
+    
+                    <div id = "table_view"> <!-- Table is displayed in this div -->
+                        <div id = "table_header" class = "table_row"> <!-- Table header displays column names -->
+                            <input type = "checkbox" name = "select_all" class = "form-input">
+                            {% for col in table_cols %}
+                                <div class = "table_col"><h4>{{ col }}</h4></div>
+                            {% endfor %}
+                        </div>
+                        {% if table_rows %}
+                            
+                            {% for i, row in enumerate(table_rows) %}
+                                <div class = {{ "table_row" if not i // 2 else "table_row tr_dark" }}>
+                                    <input type = "checkbox" name = "{{ row.id }}" class = "form-input"> <!-- Is exposing the real table.id inside of the admin panel a security risk? -->
+                                    {% for col in table_cols %}
+                                        <div>{{ row[col] }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        {% else %} <!-- Insert dummy row if no data -->
+                            <div class = "table_row">
+                                <input type = "checkbox" name = "" class = "form-input">
+                                    {% for col in table_cols %}
+                                        <div>{{ col }}</div>
+                                    {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                </fieldset>
+            </form>
+
+        </div>
+        <div></div>
+    </div>
+    
+{% endblock content %}

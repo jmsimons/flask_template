@@ -1,27 +1,33 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class = "content-section">
-        <form method = "POST" action = "">
-            {{ form.hidden_tag() }}
-            <fieldset class = "form-group">
-                <legend class = "border-bottom mb-4">Reset Password</legend>
-                <div class = "form-group">
-                    {{ form.email.label(class = "form-control-label") }}
-                    {% if form.email.errors %}
-                        {{ form.email(class = "form-control is-invalid") }}
-                        <div class = "invalid-feedback">
-                            {% for error in form.email.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
+    <div class = "center-column sm-col">
+        <div></div>
+        <div class = "body-content">
+            <div class = "frame">
+                <form method = "POST" action = "">
+                    <h3>Reset Password</h3>
+                    {{ form.hidden_tag() }}
+                    <fieldset>
+                        <div class = "form-row">
+                            {{ form.email.label(class = "form-label") }}
+                            {% if form.email.errors %}
+                                {{ form.email(class = "form-input is-invalid") }}
+                                <div class = "invalid-feedback">
+                                    {% for error in form.email.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.email(class = "form-input") }}
+                            {% endif %}
                         </div>
-                    {% else %}
-                        {{ form.email(class = "form-control") }}
-                    {% endif %}
-                </div>
-            </fieldset>
-            <div class = "form-group">
-                {{ form.submit(class = "btn btn-outline-info") }}
+                    </fieldset>
+                    <div class = "form-group">
+                        {{ form.submit(class = "btn") }}
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
+        <div></div>
     </div>
 {% endblock content %}

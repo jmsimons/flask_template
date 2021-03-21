@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class = "center-column sm-col">
+        <div></div>
+        <div class = "frame">
+            <form method = "POST" action = "">
+                {{ form.hidden_tag() }}
+                <h3 class = "">Add an expense for your vehicle</h3>
+                <fieldset class = "">
+
+                    <div class = "form-row">
+                        {{ form.amount.label(class = "form-label") }}
+                        {% if form.amount.errors %}
+                            {{ form.amount(class = "form-input is-invalid") }}
+                            <div class = "invalid-feedback">
+                                {% for error in form.amount.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.amount(class = "form-input") }}
+                        {% endif %}
+                    </div>
+
+                    <div class = "form-row">
+                        {{ form.expense_type.label(class = "form-label") }}
+                        {% if form.expense_type.errors %}
+                            {{ form.expense_type(class = "form-input is-invalid") }}
+                            <div class = "invalid-feedback">
+                                {% for error in form.expense_type.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.expense_type(class = "form-input") }}
+                        {% endif %}
+                    </div>
+
+                    <div class = "form-row">
+                        {{ form.interval.label(class = "form-label") }}
+                        {% if form.interval.errors %}
+                            {{ form.interval(class = "form-input is-invalid") }}
+                            <div class = "invalid-feedback">
+                                {% for error in form.interval.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.interval(class = "form-input") }}
+                        {% endif %}
+                    </div>
+
+                    <div class = "form-row">
+                        {{ form.odometer.label(class = "form-label") }}
+                        {% if form.odometer.errors %}
+                            {{ form.odometer(class = "form-input is-invalid") }}
+                            <div class = "invalid-feedback">
+                                {% for error in form.odometer.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.odometer(class = "form-input") }}
+                        {% endif %}
+                    </div>
+
+                    <div class = "form-row">
+                        {{ form.notes.label(class = "form-label") }}
+                        {% if form.notes.errors %}
+                            {{ form.notes(class = "form-input is-invalid") }}
+                            <div class = "invalid-feedback">
+                                {% for error in form.notes.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.notes(class = "form-input") }}
+                        {% endif %}
+                    </div>
+                    
+                </fieldset>
+                <div class = "">
+                    {{ form.submit(class = "btn btn-outline-info") }}
+                </div>
+            </form>
+        </div>
+        <div></div>
+    </div>
+    
+{% endblock content %}

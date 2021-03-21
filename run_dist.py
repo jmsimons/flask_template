@@ -17,3 +17,4 @@ if __name__ == '__main__':
         print('Webapp running with PID:', os.getpid())
         options = {'bind': '0.0.0.0:5000', 'workers': 2}
         GunicornServerApp(app, options).run()
+    # TODO: while True: RunProcessManager and other backend-tasks

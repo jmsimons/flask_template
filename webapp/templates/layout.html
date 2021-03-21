@@ -10,43 +10,66 @@
         <title>webapp</title>
         {% endif %}
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karla">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     </head>
     <body>
-        <header class="site-header mb-0">
-            <nav class="" id="navbar">
-                <button class="navbar-item" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+        <header>
+            <nav id="navbar">
+
+                <button id="navbar-button" onclick = "toggleNav()" class = "navbar-item">
+                    <img id = "nav-closed" src="https://img.icons8.com/material-rounded/24/000000/menu--v3.png"/>
                 </button>
-                <!-- <div class="navbar-item"></div> -->
                 <a class="navbar-item" href="{{ url_for('home') }}">home</a>
-                <a class="navbar-item" href="#">contact</a>
                 {% if current_user.is_authenticated %}
                     <a class="navbar-item" href="{{ url_for('logout') }}">logout</a>
                 {% else %}
                     <a class="navbar-item" href="{{ url_for('login') }}">login</a>
                 {% endif %}
             </nav>
+
+            <nav id = "dropdown-nav">
+
+                <div id = "0" class = "dropdown-panel">
+                    <a href = "#" class = "dropdown-item">This is a nav button</a>
+                    <a href = "#" class = "dropdown-item">This is a nav button</a>
+                    <a href = "#" class = "dropdown-item expand" onclick = "toggleNavPanel('1')">This is a nav button &rsaquo;</a>
+                    <a href = "#" class = "dropdown-item">This is a nav button</a>
+                </div>
+
+                <div id = "1" class = "dropdown-panel dd-panel-2">
+                    <a href="{{ url_for('register_user') }}" class = "dropdown-item">Register User</a>
+                    <a href="{{ url_for('login') }}" class = "dropdown-item">Login</a>
+                    <a href="{{ url_for('manage_users') }}" class = "dropdown-item">Manage Users</a>
+                    <a href="{{ url_for('reset_request') }}" class = "dropdown-item">Reset Request</a>
+                </div>
+
+                <div id = "2" class = "dropdown-panel dd-panel-2"> <!-- Alternative dropdown panel-2, onclick = "toggleNavPanel('2')" -->
+                    <a href = "#" class = "dropdown-item">This is a nav button</a>
+                </div>
+
+            </nav>
+
+
         </header>
         <main class="">
-            <div class="">
-                {% with messages = get_flashed_messages(with_categories = True) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <div class = "alert alert-{{ category }} mb-0">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
-                {% block content %}{% endblock %}
-            </div>
+            {% with messages = get_flashed_messages(with_categories = True) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class = "alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
         </main>
-
-        <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
     
+        <footer>
+
+        </footer>
+        <script src = "{{ url_for('static', filename = 'script.js') }}"></script>
     </body>
 </html>

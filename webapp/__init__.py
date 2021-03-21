@@ -2,11 +2,10 @@
 
 import sys, os
 from flask import Flask
-from flask_cors import CORS
+from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
-from flask_mail import Mail, Message
 
 
 # Determine root dir #
@@ -43,17 +42,19 @@ else:
     database_filepath = os.path.join(root, 'webapp', 'assets', 'webapp.db')
 
 # CORS(app)
-app.config['SECRET_KEY'] = 'cf808b01eca1b48b52ac925de441a16c'
+app.config['SECRET_KEY'] = 'c-\x9b\xe9\x83\xa7\x1d\xde\x81\x982\xb5g\xd8I\x83'
 if 'LOGIN_DISABLED' in config:
     app.config['LOGIN_DISABLED'] = config['LOGIN_DISABLED']
 else:
-    app.config['LOGIN_DISABLED'] = True
+    app.config['LOGIN_DISABLED'] = False
 
 
 # Initialize User Database #
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(database_filepath)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+from webapp.db_manager import DBManager
+db_manager = DBManager(db)
 
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
@@ -72,21 +73,9 @@ try:
         app.config['MAIL_PASSWORD'] = data[1]
         print('Email Credentials Found')
 except: print('No Email Credentials Found')
-
-
-# User-management functions
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
-def send_reset_email(user):
-    token = user.get_reset_token()
-    message = Message('Password Reset Request', sender = 'noreply@webapp.i', recipients = [user.email])
-    body = 'To reset your password, visit the following link:\n{}\n\nIf you did not make this request then simply ignore this email and no change will be made.\n'
-    message.body = body.format(url_for('reset_token', token = token, _external = True))
-    mail.send(message)
     
 
 # Imports that import objects from this script #
 from webapp.routes import *
 from webapp.models import User
+

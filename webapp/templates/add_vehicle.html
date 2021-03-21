@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class = "center-column sm-col">
+        <div></div>
+        <div class = "frame">
+            <form method = "POST" action = "">
+                {{ form.hidden_tag() }}
+                <h3 class = "">Add a Vehicle to your Garage</h3>
+                <fieldset class = "">
+                    <div class = "form-row">
+                        {{ form.year.label(class = "form-label") }}
+                        {% if form.year.errors %}
+                            {{ form.year(class = "form-input is-invalid") }}
+                            <div class = "invalid-feedback">
+                                {% for error in form.year.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.year(class = "form-input") }}
+                        {% endif %}
+                    </div>
+                    <div class = "form-row">
+                        {{ form.make.label(class = "form-label") }}
+                        {% if form.make.errors %}
+                            {{ form.make(class = "form-input is-invalid") }}
+                            <div class = "invalid-feedback">
+                                {% for error in form.make.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.make(class = "form-input") }}
+                        {% endif %}
+                    </div>
+                    <div class = "form-row">
+                        {{ form.model.label(class = "form-label") }}
+                        {% if form.model.errors %}
+                            {{ form.model(class = "form-input is-invalid") }}
+                            <div class = "invalid-feedback">
+                                {% for error in form.model.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.model(class = "form-input") }}
+                        {% endif %}
+                    </div>
+                    <div class = "form-row">
+                        {{ form.trim.label(class = "form-label") }}
+                        {% if form.trim.errors %}
+                            {{ form.trim(class = "form-input is-invalid") }}
+                            <div class = "invalid-feedback">
+                                {% for error in form.trim.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.trim(class = "form-input") }}
+                        {% endif %}
+                    </div>
+                    <div class = "form-row">
+                        {{ form.color.label(class = "form-label") }}
+                        {% if form.color.errors %}
+                            {{ form.color(class = "form-input is-invalid") }}
+                            <div class = "invalid-feedback">
+                                {% for error in form.color.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.color(class = "form-input") }}
+                        {% endif %}
+                    </div>
+                    
+                </fieldset>
+                <div class = "">
+                    {{ form.submit(class = "btn btn-outline-info") }}
+                </div>
+            </form>
+        </div>
+        <div></div>
+    </div>
+    
+{% endblock content %}

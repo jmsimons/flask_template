@@ -19,3 +19,4 @@ if __name__ == '__main__':
         # setup_webapp_db()
     print('Webapp running with PID:', os.getpid())
     app.run(debug = True, host = '0.0.0.0', port = 5000)
+    # TODO: while True: RunProcessManager and other backend-tasks
